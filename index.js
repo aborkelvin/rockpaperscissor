@@ -1,16 +1,17 @@
-// Rock paper scissors game on console
-function game() {
-    let pscore = 0;          //to store the players total score
-    let cscore = 0;          //to store the computers ,,   ,, 
+let clicks = 0;
+let pscore = 0;          //to store the players total score
+let cscore = 0;          //to store the computers ,,   ,, 
+
+function game(player) {
     
-    for (let i = 0; i < 5; i++) {
+
         let computer;
         function computerplay() {
             /*generate random numbers between 1 and 3,
             store rock, paper and scissors in an array.
             on selection of the numbers btwn 1 and 3, the corresponding value from the array will be dislayed*/
             let max = Math.floor(Math.random()*(3));
-            let box = ['Rock','Scissors','Paper'];
+            let box = ['rock','scissors','paper'];
             
             switch (max) {
                 case 0:
@@ -26,48 +27,88 @@ function game() {
         }
 
         computerplay();
-        let player = prompt('Please make your selection');
-        player = player.toLowerCase();
-        computer = computer.toLowerCase();
+        
 
         if (player !=='rock' && player !=='paper' && player !=='scissors') {
             console.log('Please input an appropriate object');
             return;
         }
-        console.log('player is ' + player);
-        console.log('computer is '+ computer);
+        
+        
+        
+
 
         function oneround(player, computer) {
             if ((player == 'rock' && computer =='scissors')||(player == 'scissors' && computer == 'paper')||(player == 'paper' && computer == 'rock')) {
                 let disp;
-                disp = 'Congratulations player,'+ player + ' beats '+ computer;
+                disp = 'You win,'+ player + ' beats '+ computer;
                 pscore+=1;
                 return disp;
                 console.log(disp);
             }else if((computer == 'rock' && player =='scissors')||(computer == 'scissors' && player == 'paper')||(computer == 'paper' && player == 'rock')){
-                let crisp = 'You Lost! '+ computer + ' beats '+ player; 
+                let crisp = 'You Lose! '+ computer + ' beats '+ player; 
                 cscore+=1;
                 return crisp;
                 console.log(crisp);
             }else if(computer == player){
-                let tie = 'this was a tie, you have to replay';
+                let tie = 'tie, you have to replay';
                 return tie;
                 console.log(tie);
             }
 
         }
-        console.log(oneround(player, computer));
-        console.log("Player's score is "+pscore);
-        console.log("Computer's score is "+cscore);
+        remark.textContent = oneround(player, computer);
+        result.appendChild(remark);
+        plscore.textContent = "Player's score is "+pscore;  
+        result.appendChild(plscore);
+        cpscore.textContent = "Computer's score is "+cscore;
+        result.appendChild(cpscore);
+        pcname.textContent = 'player is ' + player + ' and computer is '+ computer;
+        result.insertBefore(pcname, remark);
+        
+        
+
+    //}
+    clicks += 1;
+    console.log('number of clicks is '+clicks);
+    finals.textContent = '';    
+        
+    if (pscore == 5 || cscore ==5){
+        if (pscore>cscore) {
+            finals.textContent = 'Good job, player wins the round';
+        } else if(cscore >pscore){
+            finals.textContent = 'Computer wins the round, try again';
+        }else{
+            finals.textContent = 'We have a tie, Care for another round?';
+        }
+        clicks = 0;      //resets the number of clicks to 0 so it begins a new round when the buttons are clicked
+        pscore = 0;     //resets the player's score to 0 so the score of the new round counts afresh
+        cscore = 0;     //resets the computers score too
     }
 
-    if (pscore>cscore) {
-        console.log('Good job, player wins the round');
-    } else if(cscore >pscore){
-        console.log('Computer wins the round, try again');
-    }else{
-        console.log('We have a tie, Care for another round?');
-    }
+    
 }
 
-game();
+const rock = document.querySelector('.rock');
+const paper = document.querySelector('.paper');
+const scissors = document.querySelector('.scissors');
+
+
+const result = document.querySelector('.result');
+const finals = document.querySelector('.finals');
+
+
+const pcname = document.createElement('div');
+const remark = document.createElement('p');
+remark.classList.add('remark');
+const plscore = document.createElement('p');
+plscore.classList.add('plscore');
+const cpscore = document.createElement('p');
+cpscore.classList.add('cpscore');
+
+
+paper.addEventListener('click', function(){game('paper');})
+scissors.addEventListener('click', function(){game('scissors');});
+rock.addEventListener('click',function(){game('rock');});
+
+
