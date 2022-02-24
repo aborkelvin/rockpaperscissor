@@ -7,9 +7,9 @@ function game(player) {
 
         let computer;
         function computerplay() {
-            /*generate random numbers between 1 and 3,
+            /*generate random numbers between 0 and 2,
             store rock, paper and scissors in an array.
-            on selection of the numbers btwn 1 and 3, the corresponding value from the array will be dislayed*/
+            on selection of the numbers btwn 0 and 2, the corresponding value from the array will be dislayed*/
             let max = Math.floor(Math.random()*(3));
             let box = ['rock','scissors','paper'];
             
