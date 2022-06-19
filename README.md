@@ -1,2 +1,3 @@
 # rockpaperscissor
-Rock paper scissors game on the console
+Rock paper scissors game logic
+UI still to be developed
